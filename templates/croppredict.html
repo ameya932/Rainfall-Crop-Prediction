@@ -1,0 +1,177 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--  <title>Crop Recommendation App</title>-->
+<!--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+<!--  <style>-->
+<!--    /* Add your custom styles here */-->
+<!--    body {-->
+<!--      font-family: Arial, sans-serif;-->
+<!--      padding-top: 50px;-->
+<!--    }-->
+
+<!--    .container {-->
+<!--      max-width: 800px;-->
+<!--      padding: 20px;-->
+<!--    }-->
+
+<!--    #result {-->
+<!--      margin-top: 20px;-->
+<!--      font-weight: bold;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--  <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">-->
+<!--    <a class="navbar-brand" href="#">Crop App</a>-->
+<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--      <span class="navbar-toggler-icon"></span>-->
+<!--    </button>-->
+<!--    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">-->
+<!--      <ul class="navbar-nav">-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="#">Button</a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="#">Button 1</a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="#">Button 2</a>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </nav>-->
+
+<!--  <div class="container">-->
+<!--    <h1>Crop Recommendation App</h1>-->
+<!--    <form id="crop-form" action = "/predict" method="post">-->
+<!--      <div class="form-group">-->
+<!--        <label for="N">Nitrogen:</label>-->
+<!--            <input type="text" id="N" class = "formcontrol" name="N" required>-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <label for="P">Phosphorous:</label>-->
+<!--            <input type="text" id="P" class = "formcontrol" name="P" required>-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <label for="K">Potassium:</label>-->
+<!--            <input type="text" id="K" class = "formcontrol" name="K" required>-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <label for="temperature">Temperature:</label>-->
+<!--            <input type="text" id="temperature" class = "formcontrol" name="temperature" required>-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <label for="humidity">Humidity:</label>-->
+<!--            <input type="text" id="humidity" class = "formcontrol" name="humidity" required>-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <label for="ph">pH:</label>-->
+<!--            <input type="text" id="ph" class = "formcontrol" name="ph" required>-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <label for="rainfall">Rainfall:</label>-->
+<!--        <input type="text" id="rainfall" class = "formcontrol" name="rainfall" required>-->
+<!--      </div>-->
+<!--      <button type="submit" class="btn btn-primary">Submit</button>-->
+<!--    </form>-->
+<!--    <div id="result">{{crop}}</div>-->
+<!--  </div>-->
+<!--  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
+<!--  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>-->
+<!--  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crop Recommendation App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+    /* Add your custom styles here */
+    body {
+      font-family: Arial, sans-serif;
+      padding-top: 50px;
+      background-image: url('/static/images/background2.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .container {
+      max-width: 800px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+    <a class="navbar-brand" href="#">Crop App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Rainfall</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Crops</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Crop Recommendation App</h1>
+    <form id="crop-form" action="/predict" method="post">
+        <div class="form-group">
+            <label for="N">Nitrogen:</label>
+            <input type="text" id="N" class="form-control" name="N" required>
+        </div>
+        <div class="form-group">
+            <label for="P">Phosphorous:</label>
+            <input type="text" id="P" class="form-control" name="P" required>
+        </div>
+        <div class="form-group">
+            <label for="K">Potassium:</label>
+            <input type="text" id="K" class="form-control" name="K" required>
+        </div>
+        <div class="form-group">
+            <label for="temperature">Temperature:</label>
+            <input type="text" id="temperature" class="form-control" name="temperature" required>
+        </div>
+        <div class="form-group">
+            <label for="humidity">Humidity:</label>
+            <input type="text" id="humidity" class="form-control" name="humidity" required>
+        </div>
+        <div class="form-group">
+            <label for="ph">pH:</label>
+            <input type="text" id="ph" class="form-control" name="ph" required>
+        </div>
+        <div class="form-group">
+            <label for="rainfall">Rainfall:</label>
+            <input type="text" id="rainfall" class="form-control" name="rainfall" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <div id="result">{{crop}}</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
