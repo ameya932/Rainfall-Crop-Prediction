@@ -123,13 +123,13 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">Rainfall</a>
+                <a class="nav-link" href="/predict/rain">Rainfall</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Crops</a>
+                <a class="nav-link" href="/predict/crop">Crops</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="/">About</a>
             </li>
         </ul>
     </div>
@@ -137,7 +137,7 @@
 
 <div class="container">
     <h1>Crop Recommendation App</h1>
-    <form id="crop-form" action="/predict" method="post">
+    <form id="crop-form" action="/predict/crop" method="post">
         <div class="form-group">
             <label for="N">Nitrogen:</label>
             <input type="text" id="N" class="form-control" name="N" required>
