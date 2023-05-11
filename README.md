@@ -5,7 +5,7 @@ Follow these steps to run the code:
 <ul>
 <li>Clone the repository</li>
 <li>Create a virtual environment by opening cmd inside the folder </li>
-<h5>  
+<p>  
   
 ``` pip install virtualenv ```
 
@@ -23,7 +23,7 @@ Follow these steps to run the code:
   
 ``` python main.py ```
  
-</h5>  
+</p>  
 </ul>
 </h3>
 
