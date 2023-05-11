@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
 from flask import Flask, render_template, request
+import requests
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
@@ -19,7 +21,7 @@ def home():
 
 
 @app.route('/predict/crop', methods=['GET', 'POST'])
-def predict():
+def predict_crop():
     if request.method == 'GET':
         return render_template('croppredict.html')
     else:
@@ -37,27 +39,81 @@ def predict():
 
         prediction = cropmodel.predict(model_input)[0]
         predicted_label = le.inverse_transform([np.argmax(prediction)])[0]
-        
-        return render_template('croppredict.html', crop=predicted_label)
 
-@app.route('/predict/rain', methods = ['GET', 'POST'])
-def predictrain():
+        crop_info, crop_image_url, irrigation_link = fetch_crop_details(predicted_label)
+
+        return render_template('croppredict.html', crop=predicted_label, crop_info=crop_info,
+                               crop_image_url=crop_image_url, irrigation_link=irrigation_link)
+
+
+def fetch_crop_details(crop_name):
+    crop_info = ""
+    crop_image_url = ""
+    irrigation_link = ""
+
+    url = f'https://en.wikipedia.org/wiki/{crop_name}'
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        crop_info_element = soup.find('div', {'id': 'mw-content-text'})
+        if crop_info_element:
+            paragraphs = crop_info_element.find_all('p')
+            crop_info = ' '.join([p.text for p in paragraphs])
+
+        image_element = soup.find('img', {'class': 'thumbimage'})
+        if image_element:
+            crop_image_url = f"https:{image_element['src']}"
+
+        irrigation_link = f'https://wikifarmer.com/{crop_name}'
+
+    if len(crop_info) > 1000:
+        crop_info = crop_info[:1000] + "..."
+
+    return crop_info, crop_image_url, irrigation_link
+
+
+
+@app.route('/predict/rain', methods=['GET', 'POST'])
+def predict_rain():
     if request.method == 'GET':
         return render_template('rainpredict.html')
     else:
+        state = request.form['state']
+        month = request.form['month']
+
+        month_mapping = {'JAN': 1, 'FEB': 2, 'MAR': 3, 'APR': 4, 'MAY': 5, 'JUN': 6, 'JUL': 7, 'AUG': 8, 'SEP': 9, 'OCT': 10, 'NOV': 11, 'DEC': 12}
+
+        try:
+            month_value = month_mapping[month.upper()]
+        except KeyError:
+            return render_template('rainpredict.html', error_message='Invalid month entered.')
+
+        custom_data = np.array([[month_value] * 3])
+        model_input = np.expand_dims(custom_data, axis=2)
+        prediction = rainmodel.predict(model_input)
+
+        return render_template('rainpredict.html', rainfall=prediction[0][0])
+
+
+
+@app.route('/predict/rain/custom', methods=['POST'])
+def predict_rain_custom():
+    if request.method == 'POST':
         m1 = request.form['m1']
         m2 = request.form['m2']
         m3 = request.form['m3']
-        
+
         model_input = [float(m1), float(m2), float(m3)]
         model_input = np.asarray(model_input).reshape(1, 3, 1)
         prediction = rainmodel.predict(model_input)[0][0]
-        return render_template('rainpredict.html', rainfall = prediction)
-        
-        
+        return render_template('rainpredict.html', rainfall=prediction)
 
+    return render_template('rainpredict.html')
 
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+
