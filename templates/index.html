@@ -1,15 +1,494 @@
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<html lang="en">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<head>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    <title>Crop Recommendation App</title>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    <style>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    /* Add your custom styles here */&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    body {&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;      font-family: Arial, sans-serif;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;      padding-top: 50px;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;      background-image: url('/static/images/background2.jpg');&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;      background-repeat: no-repeat;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;      background-size: cover;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;      background-position: center;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    .container {&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;      max-width: 800px;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;      padding: 20px;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;      background-color: rgba(255, 255, 255, 0.8);&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;      border-radius: 10px;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    #result {&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;      margin-top: 20px;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;      font-weight: bold;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;  &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    </style>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</head>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<body>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    <a class="navbar-brand" href="#">Crop App</a>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <span class="navbar-toggler-icon"></span>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    </button>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        <ul class="navbar-nav">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;            <li class="nav-item">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <a class="nav-link" href="/predict/rain">Rainfall</a>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;            </li>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;            <li class="nav-item">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <a class="nav-link" href="/predict/crop">Crops</a>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;            </li>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;            <li class="nav-item">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                <a class="nav-link" href="/">About</a>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;            </li>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        </ul>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</nav>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</body>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</html>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<html lang="en">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<head>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <title>Crop Recommendation App - About</title>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <style>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    /* Add your custom styles here */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    body {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      font-family: Arial, sans-serif;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      padding-top: 50px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      background-repeat: no-repeat;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      background-size: cover;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      background-position: center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    .container {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      max-width: 800px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      padding: 20px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      background-color: rgba(255, 255, 255, 0.8);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      border-radius: 10px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    #result {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      margin-top: 20px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      font-weight: bold;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </style>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</head>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<body>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <a class="navbar-brand" href="#">Crop App</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <span class="navbar-toggler-icon"></span>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <ul class="navbar-nav">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <li class="nav-item">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <a class="nav-link" href="/predict/rain">Rainfall</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <li class="nav-item">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <a class="nav-link" href="/predict/crop">Crops</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <li class="nav-item active">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <a class="nav-link" href="/">About</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        </ul>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </nav>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="container">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <h1 class="text-center mb-4">Crop Recommendation App</h1>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <p>Rainfall is a crucial factor that determines the success of crops and the profitability of farming. In regions where rainfall is scarce or unpredictable, farmers face challenges in planning and managing their crops. As a result, there is a need for tools that can provide accurate and timely rainfall predictions to help farmers make informed decisions about when to plant, irrigate, and harvest their crops.</p>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <p>The Crop Recommendation App is a machine learning-based tool that aims to help farmers make better decisions about their crops and increase their yields. The app provides accurate rainfall predictions based on a variety of variables, including previous rainfall patterns, weather predictions, and soil conditions. Additionally, the app can forecast crop production and quality based on these variables.</p>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <p>By utilizing this app, farmers can optimize their crop management techniques and increase their yields and profitability. Policymakers and agricultural organizations will also find it interesting since it may shed light on the variables that affect crop success and guide plans for lucrative and sustainable farming methods.</p>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</body>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</html>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html lang="en">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>Crop Recommendation App - About</title>&ndash;&gt;-->
+<!--&lt;!&ndash;    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">&ndash;&gt;-->
+<!--&lt;!&ndash;    <style>&ndash;&gt;-->
+<!--&lt;!&ndash;    /* Add your custom styles here */&ndash;&gt;-->
+<!--&lt;!&ndash;    body {&ndash;&gt;-->
+<!--&lt;!&ndash;      font-family: Arial, sans-serif;&ndash;&gt;-->
+<!--&lt;!&ndash;      padding-top: 50px;&ndash;&gt;-->
+<!--&lt;!&ndash;      background-repeat: no-repeat;&ndash;&gt;-->
+<!--&lt;!&ndash;      background-size: cover;&ndash;&gt;-->
+<!--&lt;!&ndash;      background-position: center;&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    .container {&ndash;&gt;-->
+<!--&lt;!&ndash;      max-width: 800px;&ndash;&gt;-->
+<!--&lt;!&ndash;      padding: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;      background-color: rgba(255, 255, 255, 0.8);&ndash;&gt;-->
+<!--&lt;!&ndash;      border-radius: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;      margin-bottom: 50px;&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    #result {&ndash;&gt;-->
+<!--&lt;!&ndash;      margin-top: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;      font-weight: bold;&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+
+<!--&lt;!&ndash;    .background-image {&ndash;&gt;-->
+<!--&lt;!&ndash;      background-image: url('/static/images/background.jpg');&ndash;&gt;-->
+<!--&lt;!&ndash;      background-repeat: no-repeat;&ndash;&gt;-->
+<!--&lt;!&ndash;      background-size: cover;&ndash;&gt;-->
+<!--&lt;!&ndash;      background-position: center;&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;    &ndash;&gt;-->
+<!--&lt;!&ndash;    </style>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body class="background-image">&ndash;&gt;-->
+<!--&lt;!&ndash;<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">&ndash;&gt;-->
+<!--&lt;!&ndash;    <a class="navbar-brand" href="#">Crop App</a>&ndash;&gt;-->
+<!--&lt;!&ndash;    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"&ndash;&gt;-->
+<!--&lt;!&ndash;            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">&ndash;&gt;-->
+<!--&lt;!&ndash;        <span class="navbar-toggler-icon"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;    </button>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">&ndash;&gt;-->
+<!--&lt;!&ndash;        <ul class="navbar-nav">&ndash;&gt;-->
+<!--&lt;!&ndash;            <li class="nav-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                <a class="nav-link" href="/predict/rain">Rainfall</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li class="nav-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                <a class="nav-link" href="/predict/crop">Crops</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li class="nav-item active">&ndash;&gt;-->
+<!--&lt;!&ndash;                <a class="nav-link" href="/">About</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;        </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</nav>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;            <img src="/static/images/background.jpg" alt="Crop" class="img-fluid">&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;            <h1 class="text-center mb-4">Crop Recommendation App</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>Rainfall is a crucial factor that determines the success of crops and the profitability of farming. In&ndash;&gt;-->
+<!--&lt;!&ndash;                regions where rainfall is scarce or unpredictable, farmers face challenges in planning and managing&ndash;&gt;-->
+<!--&lt;!&ndash;                their crops. As a result, there is a need for tools that can provide accurate and timely rainfall&ndash;&gt;-->
+<!--&lt;!&ndash;                predictions to help farmers make informed decisions about when to plant, irrigate, and harvest their&ndash;&gt;-->
+<!--&lt;!&ndash;                crops.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>The Crop Recommendation App is a machine learning-based tool that aims to help farmers make better&ndash;&gt;-->
+<!--&lt;!&ndash;                decisions about their crops and increase their yields. The app provides accurate rainfall predictions&ndash;&gt;-->
+<!--&lt;!&ndash;                based on a variety of variables, including previous rainfall patterns, weather predictions, and soil&ndash;&gt;-->
+<!--&lt;!&ndash;                conditions. Additionally, the app can forecast crop production and quality based on these variables.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>By utilizing this app, farmers can optimize their crop management techniques and increase their yields&ndash;&gt;-->
+<!--&lt;!&ndash;                and profitability. Policymakers and agricultural organizations will also find it interesting since it&ndash;&gt;-->
+<!--&lt;!&ndash;                may shed light on the variables that affect crop success and guide plans for lucrative and sustainable&ndash;&gt;-->
+<!--&lt;!&ndash;                farming methods.</p&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="row mt-4">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;            <h2 class="text-center mb-4">Empowering Farmers</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>With the Crop Recommendation App, farmers can access accurate rainfall predictions and crop yield&ndash;&gt;-->
+<!--&lt;!&ndash;                forecasts. This empowers them to make informed decisions about their farming practices, including when&ndash;&gt;-->
+<!--&lt;!&ndash;                to plant, irrigate, and harvest their crops. By utilizing the app's insights, farmers can optimize&ndash;&gt;-->
+<!--&lt;!&ndash;                resource allocation, reduce risks, and ultimately increase their productivity and profitability.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;            <img src="/static/images/background.jpg" alt="Farmer" class="img-fluid">&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Crop Recommendation App - About</title>-->
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+<!--    <style>-->
+<!--    /* Add your custom styles here */-->
+<!--    body {-->
+<!--      font-family: Arial, sans-serif;-->
+<!--      padding-top: 50px;-->
+<!--      background-repeat: no-repeat;-->
+<!--      background-size: cover;-->
+<!--      background-position: center;-->
+<!--    }-->
+
+<!--    .container {-->
+<!--      max-width: 800px;-->
+<!--      padding: 20px;-->
+<!--      background-color: rgba(255, 255, 255, 0.8);-->
+<!--      border-radius: 10px;-->
+<!--      margin-bottom: 50px;-->
+<!--    }-->
+
+<!--    #result {-->
+<!--      margin-top: 20px;-->
+<!--      font-weight: bold;-->
+<!--    }-->
+
+<!--    .background-image {-->
+<!--      background-image: url('/static/images/background.jpg');-->
+<!--      background-repeat: no-repeat;-->
+<!--      background-size: cover;-->
+<!--      background-position: center;-->
+<!--    }-->
+
+<!--    @media (min-width: 576px) {-->
+<!--      .text-flow {-->
+<!--        text-align: justify;-->
+<!--      }-->
+<!--    }-->
+<!--  -->
+<!--    -->
+<!--    </style>-->
+<!--</head>-->
+<!--<body class="background-image">-->
+<!--<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">-->
+<!--    <a class="navbar-brand" href="#">Crop App</a>-->
+<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"-->
+<!--            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--        <span class="navbar-toggler-icon"></span>-->
+<!--    </button>-->
+<!--    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">-->
+<!--        <ul class="navbar-nav">-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="/predict/rain">Rainfall</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="/predict/crop">Crops</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item active">-->
+<!--                <a class="nav-link" href="/">About</a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<!--<div class="container">-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-6 order-md-2">-->
+<!--            <img src="/static/images/background.jpg" alt="Crop" class="img-fluid">-->
+<!--        </div>-->
+<!--        <div class="col-md-6 order-md-1">-->
+<!--            <h1 class="text-center mb-4">Crop Recommendation App</h1>-->
+<!--            <div class="text-flow">-->
+<!--                <p>Rainfall is a crucial factor that determines the success of crops and the profitability of farming.-->
+<!--                    In regions where rainfall is scarce or unpredictable, farmers face challenges in planning and-->
+<!--                    managing their crops. As a result, there is a need for tools that can provide accurate and timely-->
+<!--                    rainfall predictions to help farmers make informed decisions about when to plant, irrigate, and-->
+<!--                    harvest their crops.</p>-->
+<!--                <p>The Crop Recommendation App is a machine learning-based tool that aims to help farmers make better-->
+<!--                    decisions about their crops and increase their yields. The app provides accurate rainfall-->
+<!--                    predictions based on a variety of variables, including previous rainfall patterns, weather-->
+<!--                    predictions, and soil conditions. Additionally, the app can forecast crop production and quality-->
+<!--                    based on these-->
+<!--                    variables.</p>-->
+<!--                <p>By utilizing this app, farmers can optimize their crop management techniques and increase their-->
+<!--                    yields and profitability. Policymakers and agricultural organizations will also find it interesting-->
+<!--                    since it may shed light on the variables that affect crop success and guide plans for lucrative and-->
+<!--                    sustainable farming methods.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="row mt-4">-->
+<!--        <div class="col-md-6 order-md-2">-->
+<!--            <img src="/static/images/background2.jpg" alt="Farmer" class="img-fluid">-->
+<!--        </div>-->
+<!--        <div class="col-md-6 order-md-1">-->
+<!--            <h2 class="text-center mb-4">Empowering Farmers</h2>-->
+<!--            <div class="text-flow">-->
+<!--                <p>With the Crop Recommendation App, farmers can access accurate rainfall predictions and crop yield-->
+<!--                    forecasts. This empowers them to make informed decisions about their farming practices, including-->
+<!--                    when to plant, irrigate, and harvest their crops. By utilizing the app's insights, farmers can-->
+<!--                    optimize resource allocation, reduce risks, and ultimately increase their productivity and-->
+<!--                    profitability.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Rain Crop Prediction</title>
-</head>
-<body>
-    <h1>
-        About
-        
+    <title>Crop Recommendation App - About</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add your custom styles here */
+        body {
+            font-family: Arial, sans-serif;
+            padding-top: 50px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
 
-            <button onclick="location.href = '/predict/crop'">Go to Predictions</button>
-    </h1>
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            margin-bottom: 50px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .background-image {
+            background-image: url('/static/images/background.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        @media (min-width: 576px) {
+            .text-flow {
+                text-align: justify;
+            }
+        }
+
+        /* New styles for improved layout */
+        .row-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .col-image {
+            flex: 1 1 40%;
+            max-width: 40%;
+        }
+
+        .col-text {
+            flex: 1 1 55%;
+            max-width: 55%;
+        }
+
+        .col-image img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .row-content {
+                flex-direction: column;
+            }
+
+            .col-image,
+            .col-text {
+                max-width: 100%;
+            }
+        }
+        .navbar {
+        background: linear-gradient(120deg, #87CEEB, #ADD8E6);
+    }
+    
+    
+    </style>
+</head>
+<body class="background-image">
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+    <a class="navbar-brand" href="#">Crop App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/predict/rain">Rainfall</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/predict/crop">Crops</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/">About</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row row-content">
+        <div class="col-md-6 col-image order-md-2">
+            <img src="/static/images/background.jpg" alt="Crop" class="img-fluid">
+        </div>
+        <div class="col-md-6 col-text order-md-1">
+            <h1 class="text-center mb-4">Crop Recommendation App</h1>
+            <div class="text-flow">
+                <p>Rain fall is a crucial factor that determines the success of crops and the profitability of farming.
+                    In regions where rainfall is scarce or unpredictable, farmers face challenges in planning and
+                    managing their crops. As a result, there is a need for tools that can provide accurate and timely
+                    rainfall predictions to help farmers make informed decisions about when to plant, irrigate, and
+                    harvest their crops.</p>
+                <p>The Crop Recommendation App is a machine learning-based tool that aims to help farmers make better
+                    decisions about their crops and increase their yields. The app provides accurate rainfall
+                    predictions based on a variety of variables, including previous rainfall patterns, weather
+                    predictions, and soil conditions. Additionally, the app can forecast crop production and quality
+                    based on these variables.</p>
+                <p>By utilizing this app, farmers can optimize their crop management techniques and increase their
+                    yields and profitability. Policymakers and agricultural organizations will also find it interesting
+                    since it may shed light on the variables that affect crop success and guide plans for lucrative and
+                    sustainable farming methods.</p>
+            </div>
+        </div>
+        <div class="row row-content mt-4">
+            <div class="col-md-6 col-image order-md-1">
+                <img src="/static/images/background2.jpg" alt="Farmer" class="img-fluid">
+            </div>
+            <div class="col-md-6 col-text order-md-2">
+                <h2 class="text-center mb-4">Empowering Farmers</h2>
+                <div class="text-flow">
+                    <p>With the Crop Recommendation App, farmers can access accurate rainfall predictions and crop yield
+                        forecasts. This empowers them to make informed decisions about their farming practices,
+                        including
+                        when to plant, irrigate, and harvest their crops. By utilizing the app's insights, farmers can
+                        optimize resource allocation, reduce risks, and ultimately increase their productivity and
+                        profitability.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</div>
 </body>
 </html>
+
