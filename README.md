@@ -25,5 +25,8 @@ Follow these steps to run the code:
  
 </p>  
 </ul>
+
+[Link for the Live App](https://crop-recommend-bjm0.onrender.com)
+  
 </h3>
 
