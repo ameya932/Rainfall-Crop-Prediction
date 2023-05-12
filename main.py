@@ -2,7 +2,7 @@ import tensorflow as tf
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import requests
 from bs4 import BeautifulSoup
 
@@ -23,6 +23,8 @@ def home():
 @app.route('/predict/crop', methods=['GET', 'POST'])
 def predict_crop():
     if request.method == 'GET':
+        if request.args.get('rainfall', None):
+            return render_template('croppredict.html', rainfall = request.args.get('rainfall', None))
         return render_template('croppredict.html')
     else:
         N = request.form['N']
@@ -74,6 +76,28 @@ def fetch_crop_details(crop_name):
     return crop_info, crop_image_url, irrigation_link
 
 
+@app.route('/predict/rain/custom', methods=['POST'])
+def predict_rain_custom():
+    if request.method == 'POST':
+        m1 = request.form['m1']
+        m2 = request.form['m2']
+        m3 = request.form['m3']
+
+        model_input = [float(m1), float(m2), float(m3)]
+        model_input = np.asarray(model_input).reshape(1, 3, 1)
+        print(model_input)
+        prediction = rainmodel.predict(model_input)[0][0]
+        gotocrop = False
+        try:
+            y = request.form['gotocrop']
+            gotocrop = True
+        except:
+            pass
+        if gotocrop:
+            return redirect('/predict/crop?rainfall='+str(prediction))
+        return render_template('rainpredict.html', rainfall_custom="Predicted rainfall: "+str(prediction)+"mm")
+
+    return render_template('rainpredict.html')
 
 @app.route('/predict/rain', methods=['GET', 'POST'])
 def predict_rain():
@@ -92,25 +116,21 @@ def predict_rain():
 
         custom_data = np.array([[month_value] * 3])
         model_input = np.expand_dims(custom_data, axis=2)
+        print(model_input)
         prediction = rainmodel.predict(model_input)
+        gotocrop = False
+        try:
+            y = request.form['gotocrop']
+            gotocrop = True
+        except:
+            pass
+        if gotocrop:
+            return redirect('/predict/crop?rainfall='+str(prediction[0][0]))
+        return render_template('rainpredict.html', rainfall="Predicted rainfall: "+str(prediction[0][0])+"mm")
+    
 
-        return render_template('rainpredict.html', rainfall=prediction[0][0])
 
 
-
-@app.route('/predict/rain/custom', methods=['POST'])
-def predict_rain_custom():
-    if request.method == 'POST':
-        m1 = request.form['m1']
-        m2 = request.form['m2']
-        m3 = request.form['m3']
-
-        model_input = [float(m1), float(m2), float(m3)]
-        model_input = np.asarray(model_input).reshape(1, 3, 1)
-        prediction = rainmodel.predict(model_input)[0][0]
-        return render_template('rainpredict.html', rainfall=prediction)
-
-    return render_template('rainpredict.html')
 
 
 
