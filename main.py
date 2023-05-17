@@ -86,7 +86,7 @@ def predict_rain_custom():
         model_input = [float(m1), float(m2), float(m3)]
         model_input = np.asarray(model_input).reshape(1, 3, 1)
         print(model_input)
-        prediction = rainmodel.predict(model_input)[0][0]
+        prediction = round(rainmodel.predict(model_input)[0][0], 2)
         gotocrop = False
         try:
             y = request.form['gotocrop']
